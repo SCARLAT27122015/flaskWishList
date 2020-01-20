@@ -51,6 +51,7 @@ input {
   text-align: center;
 }
 
+/*Carousel styling */
 .carousel-inner{
   position: relative;
 }
@@ -70,6 +71,6 @@ input {
 #header{
   position: absolute;
   z-index: 1;
-  top:50px;
-  left:100px;
+  top:40px;
+  left:20px;
 }
