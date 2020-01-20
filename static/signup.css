@@ -50,3 +50,26 @@ input {
 .footer p{
   text-align: center;
 }
+
+.carousel-inner{
+  position: relative;
+}
+
+#carousel1{
+  margin:10px auto;
+}
+
+.marketing{
+  margin-top: 300px;
+}
+#carousel1 img{
+  opacity: 0.6;
+  height: 300px !important;
+}
+
+#header{
+  position: absolute;
+  z-index: 1;
+  top:50px;
+  left:100px;
+}

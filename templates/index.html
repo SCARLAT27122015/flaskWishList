@@ -1,15 +1,28 @@
 {% extends "base.html" %}
 {% block content %}
-    <div class="jumbotron">
-        <h1>Bucket List App</h1>
-        <p class="lead"></p>
-        <p><a class="btn btn-lg btn-success" href="showSignUp" role="button">Sign up today</a>
-        </p>
+    <div class="carousel slide" data-ride="carousel" id="carousel1">
+        <div id="header">
+            <h1>Bucket List App</h1>
+            <p class="lead"></p>
+            <p><a class="btn btn-lg btn-success" href="showSignUp" role="button">Sign up today</a>
+            </p>
+        </div>
+        <div class="carousel-inner">
+            <div class="carousel-item active">
+              <img class="d-block w-100" src="{{ url_for('static', filename='img/img1.jpg') }}" alt="First slide">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block w-100" src="{{ url_for('static', filename='img/img2.jpg') }}" alt="Second slide">
+            </div>
+            <div class="carousel-item">
+              <img class="d-block w-100" src="{{ url_for('static', filename='img/img3.jpg') }}" alt="Third slide">
+            </div>
+          </div>
     </div>
 
     
 
-    <div class="row marketing">
+    <div class="row marketing mt-5">
         <div class="col-lg-6">
             <h4>Bucket List</h4>
             <p>Donec id elit non mi porta gravida at eget metus. Maecenas faucibus mollis interdum.</p>
