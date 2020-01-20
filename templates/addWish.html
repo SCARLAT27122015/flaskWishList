@@ -9,8 +9,12 @@
     <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
     <link href="{{ url_for('static', filename='signup.css') }}" rel="stylesheet">
     <script src="{{ url_for('static', filename = 'jquery-3.4.1.min.js') }}"></script>
+    <script src="{{ url_for('static', filename='jQuery-File-Upload/js/vendor/jquery.ui.widget.js')}}"></script>
+    <script src="{{ url_for('static', filename = 'jQuery-File-Upload/js/jquery.fileupload.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'jQuery-File-Upload/js/jquery.fileupload-process.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'jQuery-File-Upload/js/fileupload-ui.js') }}"></script>
     <script src="{{ url_for('static', filename='js.js') }}"></script>
-
+    <script src="{{ url_for('static', filename='listWishes.js') }}"></script>
     <title>Python Flask Bucket List App</title>
   </head>
   <body>
@@ -19,6 +23,8 @@
             <nav>
                 <ul class="nav nav-pills float-right">
                     <li role="presentation" class="active"><a href="#" class="btn btn-primary buttonBG">Add Item</a>
+                    </li>
+                    <li role="presentation"><a class="btn-primary btn buttonBG ml-4" href="{{ url_for('userHome') }}">My Wishes</a>
                     </li>
                     <li role="presentation"><a class="btn-primary btn buttonBG ml-4" href="{{ url_for('logout') }}">Logout</a>
                     </li>
@@ -50,15 +56,16 @@
      
                     <div class="input-group">
                         <span class="input-group-btn">
-                        <span class="btn btn-primary btn-file">
-                            Browse&hellip; <input type="file" id="fileupload" name="file" multiple>
+                            <span class="btn btn-primary btn-file">
+                                Browse&hellip; <input type="file" id="fileupload" name="file" multiple>
+                            </span>
                         </span>
-                        </span>
-                        <input id="readOnly" type="text" class="form-control" readonly>
                     </div>
-     
                 </div>
      
+                <div class="float-right">
+                    <img id="imgUpload" style="width: 140px; height: 140px;" class="img-thumbnail">
+                </div>
                 <div class="form-group">
                     <label>Mark this as private and not visible to others.</label>
                     <br/>
@@ -78,6 +85,7 @@
                     </p>
                 </div>
             </form>
+
         </section>
         
         <footer class="footer">

@@ -40,6 +40,21 @@ $(document).ready(function($) {
             }
         })
     });
+
+    $('#fileupload').fileupload({
+        url: 'upload',
+        dataType: 'json',
+        add: function(e, data) {
+            data.submit();
+        },
+        success: function(response, status) {
+            $('#imgUpload').attr('src','static/Uploads/' + response.filename);
+        },
+        error: function(error) {
+            console.log(error);
+        }
+    });
+
 });
 
 function Edit(elm) {
@@ -66,11 +81,8 @@ function GetWishes(){
     $.ajax({
         url: '/getWish',
         type: 'POST',
-        
         success: function(res) {
-            
             var wishObj = JSON.parse(res);
-
             $('#ulist').empty();
             $('#listTemplate').tmpl(wishObj).appendTo('#ulist');
         },

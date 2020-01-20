@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 # Librarys
+import os
+import uuid
 from flask import Flask, render_template, request, json, redirect, url_for, session, flash
 import mysql.connector
 from werkzeug.security import generate_password_hash, check_password_hash
@@ -8,6 +10,7 @@ app = Flask(__name__)
 
 # Settings
 app.config['SECRET_KEY'] = 'secret'
+app.config['UPLOAD_FOLDER'] = 'static/Uploads'
 
 #sql connection
 
@@ -210,6 +213,15 @@ def deleteWish():
 	finally:
 		cursor.close()
     
+
+@app.route('/upload', methods=['GET', 'POST'])
+def upload():
+    if request.method== 'POST':
+    	file = request.files['file']
+    	extension = os.path.splitext(file.filename)[1]
+    	f_name = str(uuid.uuid4()) + extension
+    	file.save(os.path.join(app.config['UPLOAD_FOLDER'], f_name))
+    	return json.dumps({'filename': f_name})
 
 # Run
 if __name__ == '__main__':
