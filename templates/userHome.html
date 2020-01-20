@@ -11,6 +11,10 @@
     <link href="{{ url_for('static', filename='signup.css') }}" rel="stylesheet">
     <script src="{{ url_for('static', filename = 'jquery-3.4.1.min.js') }}"></script>
     <script type="text/javascript" src="{{ url_for('static', filename='jquery_templates.tmpl.js') }}"></script>
+    <script src="{{ url_for('static', filename='jQuery-File-Upload/js/vendor/jquery.ui.widget.js')}}"></script>
+    <script src="{{ url_for('static', filename = 'jQuery-File-Upload/js/jquery.fileupload.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'jQuery-File-Upload/js/jquery.fileupload-process.js') }}"></script>
+    <script src="{{ url_for('static', filename = 'jQuery-File-Upload/js/fileupload-ui.js') }}"></script>
     <script src="{{ url_for('static', filename='js.js') }}"></script>
     <script src="{{ url_for('static', filename='listWishes.js')}}"></script>
     <title>Python Flask Bucket List App</title>
@@ -114,6 +118,34 @@
                                 <label for="message-text" class="control-label">Description:</label>
                                 <textarea class="form-control" id="editDescription"></textarea>
                             </div>
+                                <div class="form-group">
+                                    <label for="txtPost">Photos</label>
+                                 
+                                    <div class="input-group">
+                                        <span class="input-group-btn">
+                                                    <span class="btn btn-primary btn-file">
+                                                        Browse&hellip; <input type="file" id="fileupload" name="file" multiple>
+                                                    </span>
+                                        </span>
+                                        <div class="pull-right">
+                                            <img id="imgUpload" style="width: 140px; height: 140px;" class="img-thumbnail">
+                                            <input type="hidden" name="filePath" id="filePath"></input>
+                                        </div>
+                                    </div>
+                                 
+                                </div>
+                                 
+                                <div class="form-group">
+                                    <label>Mark this as private and not visible to others.</label>
+                                    <br/>
+                                    <input id="chkPrivate" name="private" type="checkbox"> Mark as Private <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
+                                </div>
+                                 
+                                <div class="form-group">
+                                    <label>Have you already accomplished this?</label>
+                                    <br/>
+                                    <input id="chkDone" name="done" type="checkbox"> Mark as Done <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
+                                </div>
                         </form>
                     </div>
                     <div class="modal-footer">

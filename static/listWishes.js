@@ -18,17 +18,42 @@ $(document).ready(function($) {
         });
     });
     
+    $('#chkPrivate').click(function(){
+        alert($('#chkPrivate').is(':checked'));
+
+    });
+
+
     $('#btnUpdate').click(function() {
         var title = $('#editTitle').val();
         var description = $('#editDescription').val();
         var id = localStorage.getItem('Id');
+        var filePath = $("#imgUpload").attr('src');
+        var Private= $('#chkPrivate').is(':checked');
+        var Done = $('#chkDone').is(':checked');
+        var isPrivate, isDone;
+
+        if (Private) {
+            isPrivate = 1;
+        }else{
+            isPrivate = 0;
+        }
+
+        if (Done) {
+            isDone = 1;
+        }else{
+            isDone = 0;
+        }
 
         $.ajax({
             url: '/updateWish',
             data: {
                 title: title,
                 description: description,
-                id: id
+                id: id,
+                filePath: filePath,
+                isPrivate: isPrivate,
+                isDone: isDone       
             },
             type: 'POST',
             success: function(res) {
@@ -41,6 +66,11 @@ $(document).ready(function($) {
         })
     });
 
+    fileUpload();
+
+});
+
+function fileUpload(){
     $('#fileupload').fileupload({
         url: 'upload',
         dataType: 'json',
@@ -48,14 +78,16 @@ $(document).ready(function($) {
             data.submit();
         },
         success: function(response, status) {
-            $('#imgUpload').attr('src','static/Uploads/' + response.filename);
+            var filePath = 'static/Uploads/' + response.filename;
+            $('#imgUpload').attr('src', filePath);
+            $('#filePath').val(filePath);
+            $("#myImage").fadeIn(2000);
         },
         error: function(error) {
             console.log(error);
         }
     });
-
-});
+}
 
 function Edit(elm) {
     var myId = $(elm).attr('data-id');
@@ -70,6 +102,15 @@ function Edit(elm) {
             $('#editTitle').val(data[0]['Title']);
             $('#editDescription').val(data[0]['Description']);
             localStorage.setItem("Id", data[0]['Id']);
+             $('#imgUpload').attr('src', data[0]['FilePath']);
+   
+            if (data[0]['Private'] == "1") {
+                $('#chkPrivate').prop('checked', true);
+            }
+           
+            if (data[0]['Done'] == "1") {
+                $('#chkDone').prop('checked', true);
+            }
         },
         error: function(error) {
             console.log(error);
@@ -96,3 +137,4 @@ function GetWishes(){
 function ConfirmDelete(elem) {
     localStorage.setItem('deleteId', $(elem).attr('data-id'));
 }
+

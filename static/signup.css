@@ -62,7 +62,7 @@ input {
 }
 
 /*Hides the message for the registration form*/
-#flash{
+#flash, #myImage{
   display:none;
 }
 
