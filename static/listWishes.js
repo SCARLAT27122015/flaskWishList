@@ -18,11 +18,6 @@ $(document).ready(function($) {
         });
     });
     
-    $('#chkPrivate').click(function(){
-        alert($('#chkPrivate').is(':checked'));
-
-    });
-
 
     $('#btnUpdate').click(function() {
         var title = $('#editTitle').val();
@@ -99,11 +94,20 @@ function Edit(elm) {
         type: 'POST',
         success: function(res) {
             let data = JSON.parse(res);
+            var image = data[0]['FilePath'];
+
             $('#editTitle').val(data[0]['Title']);
             $('#editDescription').val(data[0]['Description']);
             localStorage.setItem("Id", data[0]['Id']);
-             $('#imgUpload').attr('src', data[0]['FilePath']);
-   
+            
+            if (image != '') {
+                $('#imgUpload').attr(
+                    {
+                        'src': image, 
+                        'alt': data[0]['Title']
+                    });
+            }
+
             if (data[0]['Private'] == "1") {
                 $('#chkPrivate').prop('checked', true);
             }

@@ -127,8 +127,8 @@
                                                         Browse&hellip; <input type="file" id="fileupload" name="file" multiple>
                                                     </span>
                                         </span>
-                                        <div class="pull-right">
-                                            <img id="imgUpload" style="width: 140px; height: 140px;" class="img-thumbnail">
+                                        <div class="float-right" id="myPicture">
+                                            <img id="imgUpload" style="width: 140px; height: 140px;" class="img-thumbnail transImage">
                                             <input type="hidden" name="filePath" id="filePath"></input>
                                         </div>
                                     </div>
@@ -136,13 +136,13 @@
                                 </div>
                                  
                                 <div class="form-group">
-                                    <label>Mark this as private and not visible to others.</label>
+                                    <label for="chkPrivate">Mark this as private and not visible to others.</label>
                                     <br/>
                                     <input id="chkPrivate" name="private" type="checkbox"> Mark as Private <span class="glyphicon glyphicon-lock" aria-hidden="true"></span>
                                 </div>
                                  
                                 <div class="form-group">
-                                    <label>Have you already accomplished this?</label>
+                                    <label for="chkDone">Have you already accomplished this?</label>
                                     <br/>
                                     <input id="chkDone" name="done" type="checkbox"> Mark as Done <span class="glyphicon glyphicon-ok" aria-hidden="true"></span>
                                 </div>
