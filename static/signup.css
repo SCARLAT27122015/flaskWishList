@@ -29,6 +29,26 @@ body {
   z-index: 2;
 }
 
+.btn-file {
+  position: relative;
+  overflow: hidden;
+}
+         
+.btn-file input[type=file] {
+    position: absolute;
+    top: 0;
+    right: 0;
+    min-width: 100%;
+    min-height: 100%;
+    font-size: 100px;
+    text-align: right;
+    filter: alpha(opacity=0);
+    opacity: 0;
+    outline: none;
+    background: white;
+    cursor: inherit;
+}
+
 /*Aligns inputs properly*/
 input {
   margin: 10px auto;
@@ -73,4 +93,10 @@ input {
   z-index: 1;
   top:40px;
   left:20px;
+}
+
+
+/*Styling for readonly button*/
+#readOnly{
+  margin-top: 0;
 }
