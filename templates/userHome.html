@@ -1,0 +1,148 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/css/bootstrap.min.css" integrity="sha384-Vkoo8x4CGsO3+Hhxv8T/Q5PaXtkKtu6ug5TOeNV6gBiFeWPGFN9MuhOf23Q9Ifjh" crossorigin="anonymous">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css">
+    <link href="{{ url_for('static', filename='signup.css') }}" rel="stylesheet">
+    <script src="{{ url_for('static', filename = 'jquery-3.4.1.min.js') }}"></script>
+    <script type="text/javascript" src="{{ url_for('static', filename='jquery_templates.tmpl.js') }}"></script>
+    <script src="{{ url_for('static', filename='js.js') }}"></script>
+    <script src="{{ url_for('static', filename='listWishes.js')}}"></script>
+    <title>Python Flask Bucket List App</title>
+    <style>
+        .trash {
+            color: rgb(209, 91, 71);
+        }
+
+        .pencil{
+            color: #007bff;
+        }
+        .panel-body .checkbox {
+            display: inline-block;
+            margin: 0px;
+        }
+        .list-group {
+            margin-bottom: 0px;
+        }
+
+        .list-group-item{
+            -webkit-transition: -webkit-transform 0.4s;
+            transition: transform 0.4s;
+        }
+        .list-group-item:hover{
+            -webkit-transform: scale(1.1) rotate(0.01deg);
+            transform: scale(1.1) rotate(0.01deg);
+            font-size: 20px;
+        }
+
+    </style>
+  </head>
+  <body>
+      <div class="container">
+        <div class="header">
+            <nav>
+                <ul class="nav nav-pills float-right">
+                    <li role="presentation" class="active btn btn-primary mr-3"><a href="{{ url_for('logout') }}" class="buttonBG">Logout</a>
+                    </li>
+                    <li role="presentation" class="btn btn-primary mr-3"><a href="{{ url_for('showAddWish') }}" class="buttonBG">Add Wish</a></li>
+                </ul>
+            </nav>
+            <h3 class="text-muted">Python Flask App</h3>
+            {% with messages = get_flashed_messages() %}
+              {% if messages %}
+                {% for message in messages %}
+                  <div class="alert alert-warning alert-dismissible" role="alert">
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close"><span aria-hidden="true">×</span></button>
+                    {{message}}
+                  </div>
+                {% endfor %}
+              {% endif %}
+            {% endwith %}
+        </div>
+        
+        <!-- Here goes the flask data-->
+
+        <script id="listTemplate" type="text/x-jQuery-tmpl">
+            <li class="list-group-item">
+                <div class="checkbox float-left">
+                    <label>
+                        ${Title}
+                    </label>
+                </div>
+                <div class="pull-right action-buttons float-right">
+                    <a class="editingPost" data-id=${Id} onclick="Edit(this)" data-target="#editModal" data-toggle="modal" ><i class="fas fa-pencil-alt pencil"></i></a>
+                   <a class="deletingPost" data-id=${Id} onclick="ConfirmDelete(this)" data-target="#deleteModal" data-toggle="modal" ><i class="fas fa-trash-alt trash"></i></a>
+                </div>
+            </li>
+        </script>
+
+
+        <div class="row">
+            <div class="col-md-12 mt-5">
+                <div class="panel-body">
+                    <ul id="ulist" class="list-group"></ul>
+                </div>
+            </div>
+        </div>
+
+        <div class="clearfix"></div>
+        <footer class="footer mt-3">
+
+            <p>The marshmallow &copy; Company 2015</p>
+        </footer>
+    </div>
+    
+    <!-- Modal edition-->
+        <div class="modal fade" id="editModal" tabindex="-1" role="dialog" aria-labelledby="editModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h4 class="modal-title" id="editModalLabel">Update Wish</h4>
+                    </div>
+                    <div class="modal-body">
+                        <form role="form">
+                            <div class="form-group">
+                                <label for="recipient-name" class="control-label">Title:</label>
+                                <input type="text" class="form-control" id="editTitle">
+                            </div>
+                            <div class="form-group">
+                                <label for="message-text" class="control-label">Description:</label>
+                                <textarea class="form-control" id="editDescription"></textarea>
+                            </div>
+                        </form>
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Close</button>
+                        <button type="button" id="btnUpdate" class="btn btn-primary">Update</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- End of modal edition-->
+
+    <!-- Modal deletion -->
+        <div class="modal fade" id="deleteModal" tabindex="-1" role="dialog" aria-labelledby="deleteModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header" style="text-align:center;">
+                        <p class="modal-title">Do you really want to remove this post from the list?</p>
+                    </div>
+         
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-default" data-dismiss="modal">Cancel</button>
+                        <button type="button" class="btn btn-primary" id="deleteButton">Delete</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    <!-- End of modal deletion -->
+    
+    <script src="https://cdn.jsdelivr.net/npm/popper.js@1.16.0/dist/umd/popper.min.js" integrity="sha384-Q6E9RHvbIyZFJoft+2mJbHaEWldlvI9IOYy5n3zV9zzTtmI3UksdQRVvoxMfooAo" crossorigin="anonymous"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.4.1/js/bootstrap.min.js" integrity="sha384-wfSDF2E50Y2D1uUdj0O3uMBJnjuUD4Ih7YwaYd1iqfktj0Uod8GCExl3Og8ifwB6" crossorigin="anonymous"></script>
+  </body>
+</html>
